@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand">FCM-MANAGEMENT</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Sent Message</a></li>
+				<li><a th:href="@{/users}">Users</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<h3>>>Sent Message</h3>
+		<br>
+		<table class="table">
+			<thead>
+				<tr>
+					<th style="width: 2%"></th>
+					<th style="width: 3%">No.</th>
+					<th style="width: 15%">Title</th>
+					<th style="width: 25%">Body</th>
+					<th style="width: 15%">Image</th>
+					<th style="width: 15%">Date</th>
+					<th style="width: 20%">Target User</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="message : ${listMessage}">
+					<td><input type="checkbox" th:id="${message.id}"
+						name="vehicle3" th:value="${message.id}"
+						onclick="myFunction(this)"></td>
+					<td th:utext="${message.no}"></td>
+					<td th:utext="${message.title}">John</td>
+					<td th:utext="${message.body}">Doe</td>
+					<td th:utext="${message.imageUrl}">john@example.com</td>
+					<td th:utext="${message.date}">john@example.com</td>
+					<td><a href="target-user.html">view</a></td>
+				</tr>
+
+			</tbody>
+		</table>
+		<br> <br>
+		<div class="center">
+			<button id="edit" type="button" class="btn btn-primary btn-size"
+				disabled>Edit</button>
+			&nbsp;&nbsp;&nbsp;&nbsp; <a
+				class="btn btn-success btn-size center-atag"
+				th:href="@{/notification}">Create</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<button id="resend" type="submit" class="btn btn-info btn-size"
+				onclick="onclickResendButton()" disabled>re-send</button>
+		</div>
+		<form id="resendForm" method="POST"
+			th:action="@{/notification/resend}">
+			<input type="hidden" id="messageId" name="messageId">
+		</form>
+
+	</div>
+	<script>
+            var checkBoxStack = [];
+            function myFunction(item) {
+                var editButton = document.getElementById("edit");
+                var resendButton = document.getElementById("resend");
+                var itemId = item.id;
+                if (item.checked == true) {
+                    if (!checkBoxStack.includes(itemId)) {
+                        checkBoxStack.push(itemId);
+                    }
+                } else {
+                    removeItem(itemId);
+                }
+                if (checkBoxStack.length >= 1) {
+                    if (checkBoxStack.length == 1) {
+                        editButton.disabled = false;
+                    } else {
+                        editButton.disabled = true;
+                    }
+                    resendButton.disabled = false;
+                } else {
+                    editButton.disabled = true;
+                    resendButton.disabled = true;
+                }
+                alert(checkBoxStack.length);
+            }
+            function removeItem(value) {
+                checkBoxStack.splice(checkBoxStack.indexOf(value), 1);
+            }
+
+            function onclickResendButton() {
+                var inputHidden = document.getElementById("targetUserList");
+
+            }
+        </script>
+</body>
+</html>

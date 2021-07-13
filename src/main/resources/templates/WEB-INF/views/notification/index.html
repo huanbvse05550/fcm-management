@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	  <link th:href="@{/css/style.css}" rel="stylesheet">
+<style>
+
+.center-atag {
+	text-align: center;
+	line-height: 33px;
+}
+
+form {
+	margin-left: 10%;
+}
+
+form input {
+	width: 80%;
+	height: 50px;
+	margin-bottom: 20px
+}
+</style>
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand">FCM-MANAGEMENT</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="index.html">Sent Message</a></li>
+				<li><a href="#">Users</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<h3>>>Sent Message>Create</h3>
+		<br>
+		<form  method="POST" th:action="@{/notification/next}">
+			<h5>*Image is optional</h5>
+			<div class="form-group">
+				<label for="email">title:</label> <input type="text"
+					class="form-control" id="email" name="title" th:value="${title}"  required>
+			</div>
+			<div class="form-group">
+				<label for="comment">body:</label>
+				<textarea class="form-control" rows="5" id="comment" name="body" th:utext="${body}" required>${body}</textarea>
+				<div class="form-group">
+					<label for="email">image</label> <input type="text"
+						class="form-control" id="email" name="image" th:value="${imageUrl == 'null' ? '': imageUrl}">
+				</div>
+			</div>
+			<button type="submit" class="btn btn-success btn-size">Next
+				Step</button>
+		</form>
+	</div>
+
+</body>
+</html>
